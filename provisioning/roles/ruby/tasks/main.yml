@@ -1,0 +1,5 @@
+---
+- name: Ruby | Install Ruby
+  apt: pkg=ruby update-cache=yes
+  sudo: yes
+  tags: ruby
