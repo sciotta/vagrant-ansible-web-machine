@@ -14,6 +14,12 @@
     state: started
     enabled: true
 
+- name: Copy the my.cnf file
+  sudo: yes
+  template: src=my.cnf dest=/etc/mysql/my.cnf
+  notify:
+   - restart mysql
+
 - name: update mysql root password for all root accounts
   sudo: yes
   mysql_user:
