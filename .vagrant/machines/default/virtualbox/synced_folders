@@ -1,1 +1,0 @@
-{"virtualbox":{"/home/vagrant/application":{"guestpath":"/home/vagrant/application","hostpath":"/home/thiago/Projects/vagrant-ansible-web-machine","disabled":false},"/home/vagrant/shared":{"guestpath":"/home/vagrant/shared","hostpath":"/home/thiago/Projects/vagrant-ansible-web-machine/shared","disabled":false}}}

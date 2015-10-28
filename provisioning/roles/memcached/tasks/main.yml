@@ -1,0 +1,26 @@
+- name: Define memcached_user.
+  set_fact:
+    memcached_user: "vagrant"
+  when: memcached_user is not defined
+
+- name: Update apt cache.
+  sudo: true
+  apt: update_cache=yes cache_valid_time=86400
+
+- name: Install Memcached.
+  sudo: true
+  apt: name=memcached state=installed
+
+  - name: Copy Memcached configuration.
+    sudo: true
+    template:
+      src: memcached.conf
+      dest: "/etc/memcached.conf"
+      owner: root
+      group: root
+      mode: 0644
+    notify: restart memcached
+
+  - name: Ensure Memcached is started and set to run on startup.
+    sudo: true
+    service: name=memcached state=started enabled=yes
