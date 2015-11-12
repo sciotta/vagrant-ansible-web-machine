@@ -23,7 +23,7 @@
 - name: MongoDB | Mongorestore
   sudo: yes
   args:
-    chdir: /home/vagrant/shared/mongodump
+    chdir: /home/vagrant/shared
   shell:
-    mongorestore
+    mongorestore --dir=mongodump
   tags: mongodb
