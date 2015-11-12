@@ -15,6 +15,42 @@
   apt: pkg=mongodb-org update-cache=yes
   tags: mongodb
 
+- name: MongoDB | Set system locale
+  action: command sudo update-locale LC_ALL=en_US.UTF-8
+  tags: mongodb
+
+- name: MongoDB | Set default locale
+  sudo: yes
+  lineinfile: dest=/etc/default/locale
+    regexp="LC_ALL"
+    line="LC_ALL=\"en_US.UTF-8\""
+  tags: mongodb
+
+- name: MongoDB | Install PyMongo package
+  sudo: yes
+  apt: pkg=python-pymongo state=latest
+  tags: mongodb
+
+- name: MongoDB | Creating user
+  mongodb_user:
+    database: admin
+    name: user
+    password: password
+    state: present
+    roles: 'userAdminAnyDatabase'
+  tags: mongodb
+  sudo: yes
+
+- name: MongoDB | Copy configuration.
+  sudo: true
+  template:
+    src: mongod.conf.j2
+    dest: "/etc/mongod.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart mongod
+
 - name: MongoDB | Run mongo daemon
   sudo: yes
   service: name=mongod state=started
