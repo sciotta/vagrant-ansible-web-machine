@@ -8,6 +8,7 @@
   sudo: yes
   shell:
     echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+  tags: mongodb
 
 - name: MongoDB | Install latest mongodb
   sudo: yes
@@ -17,4 +18,12 @@
 - name: MongoDB | Run mongo daemon
   sudo: yes
   service: name=mongod state=started
+  tags: mongodb
+
+- name: MongoDB | Mongorestore
+  sudo: yes
+  args:
+    chdir: /home/vagrant/shared/mongodump
+  shell:
+    mongorestore
   tags: mongodb
